@@ -1,0 +1,16 @@
+{% extends "layout.html"%}
+{%block content%}
+<form action="/resultado" method="POST">
+    <div class="col-md-12">
+        <label>N1: </label>
+        <input type="text" name="n1"/>
+    </div>
+    <div class="col-md-12">
+        <label>N2: </label>
+        <input type="text" name="n2"/>
+    </div>
+    
+    
+    <input type="submit">
+</form>
+{%endblock%}
