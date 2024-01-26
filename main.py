@@ -68,6 +68,7 @@ def calculo():
     return render_template("formulario1.html")
 
 
+
 @app.route("/resultado", methods=["GET", "POST"])
 def resultado():
     if request.method == "POST":
