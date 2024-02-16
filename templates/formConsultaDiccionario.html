@@ -1,0 +1,27 @@
+{% extends "layout.html"%}
+
+{%block content%}
+{%import "_macros.html" as macros%}
+<h1>Datos personales</h1>
+<form action="/saludo" method="POST"">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                        <div class="col-md-12 b-2">
+                            {{macros.input_Form(form., class="form-control")}}
+                        </div>
+                        <div class="col-md-12">
+                            {{macros.input_Form(form.espaniol, class="form-control")}}
+                        </div>
+                        <div class="col-md-12 d-flex align-items-center justify-content-center">
+                            <input type="submit" class="btn btn-outline-primary" name="btn1">
+                        </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</form>
+
+{%endblock%}
