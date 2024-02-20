@@ -1,13 +1,33 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, Response
+from flask_wtf.csrf import CSRFProtect
+from flask import g
+from flask import flash
+
 import forms
 app = Flask(__name__)
+
+app.secret_key = "esta es la clave secreta"
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return "nada", 404
+
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+@app.before_request
+def antes_de_cada_peticion():
+    g.prueba = "Hola"
+    print("Antes 1")
+
 @app.route("/alumnos", methods=['GET', 'POST'])
 def alumnos():
+    print("Dentro 2")
+    valor = g.prueba
+    print(valor)
     alumn_form = forms.UserForm(request.form)
     if request.method == "POST" and alumn_form.validate():
         nom = alumn_form.nombre.data
@@ -15,13 +35,20 @@ def alumnos():
         amaterno = alumn_form.amaterno.data
         edad = alumn_form.edad.data
         correo = alumn_form.correo.data
-        
+        mensaje = "Bienvenido: {}".format(nom)
+        flash(mensaje)
         print("Nombre:{}".format(nom))
         print("Email:{}".format(correo))
         print("Apellido paterno:{}".format(apaterno))
         return render_template("alumnos.html", form = alumn_form, nombre = nom, correo = correo, apaterno = apaterno, amaterno = amaterno, edad = edad)
     else:
         return render_template("alumnos.html", form = alumn_form)
+
+@app.after_request
+def despues_de_cada_peticion(response):
+    print("Despues 3")
+    return response
+
 
 @app.route("/maestros")
 def maestros():

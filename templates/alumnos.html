@@ -3,7 +3,18 @@
 {%block content%}
 {%import "_macros.html" as macros%}
         <h1>Alumnos</h1>
+{%with messages = get_flashed_messages() %}
+            {%if messages%}
+            {%for message in messages%}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+            {%endfor%}
+            {%endif%}
+            {%endwith%}
+
         <form action="/alumnos" method="POST" novalidate>
+            {{ form.csrf_token }}
             {{macros.input_Form(form.nombre, class="form-control")}}
             {{macros.input_Form(form.apaterno, class="form-control")}}
             {{macros.input_Form(form.amaterno, class="form-control")}}
